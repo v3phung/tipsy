@@ -33,18 +33,37 @@ class ViewController: UIViewController {
         let tipPercentages = [0.15, 0.18, 0.20]
         let bill = Double (billField.text!) ?? 0
         let tip = bill * tipPercentages[tipControl.selectedSegmentIndex]
-        let defaults = UserDefaults.standard
-        defaults.set(tip, forKey: "default_tip_percentage")
-        defaults.synchronize()
+        setDefault()
         let total = bill + tip
         
         tipLabel.text = String(format: "$%.2f", tip)
         totalLabel.text = String( format: "$%.2f", total)
     }
     
+    func setDefault(){
+        let tipPercentages = [0.15, 0.18, 0.20]
+        let defaults = UserDefaults.standard
+        let value = tipPercentages[tipControl.selectedSegmentIndex]
+        defaults.set(value, forKey: "default_tip_percentage")
+        defaults.synchronize()
+    }
+    
     func defaultTip(){
         let defaults = UserDefaults.standard
         let tipValue = defaults.double(forKey: "default_tip_percentage")
+        
+        // highlight the segmented control choice
+        switch tipValue {
+            case 0.15:
+                tipControl.selectedSegmentIndex = 0
+            case 0.18:
+                tipControl.selectedSegmentIndex = 1
+            case 0.20:
+                tipControl.selectedSegmentIndex = 2
+            default:
+                tipControl.selectedSegmentIndex = 0
+        }
+        
         let bill = Double (billField.text!) ?? 0
         let tip = bill * tipValue
         let total = bill + tip
@@ -61,19 +80,6 @@ class ViewController: UIViewController {
         defaultTip()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        print("view did appear")
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        print("view will disappear")
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        print("view did disappear")
-    }
+
 }
 

@@ -31,6 +31,31 @@ class SettingsViewController: UIViewController {
         defaults.synchronize()
     }
     
+    func defaultTip(){
+        let defaults = UserDefaults.standard
+        let tipValue = defaults.double(forKey: "default_tip_percentage")
+        // highlight the segmented control choice
+        switch tipValue {
+        case 0.15:
+            defaultSettings.selectedSegmentIndex = 0
+        case 0.18:
+            defaultSettings.selectedSegmentIndex = 1
+        case 0.20:
+            defaultSettings.selectedSegmentIndex = 2
+        default:
+            defaultSettings.selectedSegmentIndex = 0
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        defaultTip()
+    }
+
+    
+
+    
 
     /*
     // MARK: - Navigation
