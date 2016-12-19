@@ -5,7 +5,7 @@
 
 Submitted by: **Derrick Wong**
 
-Time spent: **X** hours spent in total
+Time spent: **7** hours spent in total
 
 ## User Stories
 
